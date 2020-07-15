@@ -51,16 +51,25 @@ int snake_t = SNAKE_MOVE_NULL; // 运动方向
 
 // 创建一个食物
 int create_food() {
-    while(1) {
-        srand(time(NULL));
-        int food_x = rand() % MAPWINDOW;
-        srand(time(NULL));
-        int food_y = rand() % MAPHEIGHT;
-        if(map[food_x][food_y] == MAP_TYPE_NULL) {
-            map[food_x][food_y] = MAP_TYPE_FOOD;
-            break;
+    int free_len = 0;
+    int free[MAPWINDOW*MAPHEIGHT][2];
+    for(int x = 0; x < MAPWINDOW; x++) {
+        for(int y = 0; y < MAPHEIGHT; y++) {
+            if(map[x][y] == MAP_TYPE_NULL) {
+                free[free_len][0] = x;
+                free[free_len][1] = y;
+                free_len ++;
+            }
         }
     }
+    
+    if(free_len <= 0) {
+        
+        return 1;
+    }
+    srand(time(NULL));
+    int random = rand() % free_len;
+    map[free[random][0]][free[random][1]] = MAP_TYPE_FOOD;
     return 0;   
 }
 // 得到蛇长度

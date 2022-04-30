@@ -7,6 +7,6 @@ find_package(SDL2 REQUIRED)
 
 add_executable(qwq main.c)
 
-target_link_libraries(qwq SDL2 inih)
+target_link_libraries(qwq SDL2)
 
 install(TARGETS qwq RUNTIME DESTINATION bin)
